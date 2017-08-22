@@ -6,9 +6,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using SabberStoneCore.Enums;
-using SabberStoneSyncchronizer.Model;
+using SabberStoneSynchronizer.Model;
 
-namespace SabberStoneSyncchronizer
+namespace SabberStoneSynchronizer
 {
 	class Interpreter
 	{
@@ -414,10 +414,10 @@ namespace SabberStoneSyncchronizer
 
 			}
 
-			return new PowerTagChange()
+			return new PowerTagChange
 			{
 				Id = id,
-				Tag = tag,
+				Tag = Util.ParseTag(tag),
 				Value = value
 			};
 		}

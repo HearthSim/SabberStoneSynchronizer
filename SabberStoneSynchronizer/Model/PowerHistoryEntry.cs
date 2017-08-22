@@ -1,6 +1,6 @@
 ﻿using SabberStoneCore.Enums;
 
-namespace SabberStoneSyncchronizer.Model
+namespace SabberStoneSynchronizer.Model
 {
 	public abstract class PowerHistoryEntry
 	{

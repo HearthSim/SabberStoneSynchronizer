@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
-namespace SabberStoneSyncchronizer.Model
+namespace SabberStoneSynchronizer.Model
 {
 	internal class PowerChoicesEntity : PowerHistoryEntry
 	{
@@ -50,19 +51,21 @@ namespace SabberStoneSyncchronizer.Model
 				case ChoiceType.INVALID:
 					throw new NotImplementedException();
 				case ChoiceType.MULLIGAN:
-					foreach (var choice in Choices)
 					{
-						var player = powerGame.GetIdByName(_playerName);
-						var choiceEntities = Choices.Select(a => powerGame.Entities[a]).ToList();
-						powerGame.GetEntityById(player).SetChoices(choiceEntities);
-
-						//todo hack, not sure if we should force these in hand here
-						foreach (var choiceEntity in choiceEntities)
+						foreach (var choice in Choices)
 						{
-							choiceEntity.Change(GameTag.ZONE.ToString(), "HAND");
+							var choiceEntities = Choices.Select(a => powerGame.Entities[a]).ToList();
+							var player = powerGame.GetIdByName(_playerName);
+							(powerGame.GetEntityById(player) as Player).CurrentChoice = new PowerChoice(choiceEntities, ChoiceType.MULLIGAN, powerGame.GetIdByName(Source));
+
+							//todo hack, not sure if we should force these in hand here
+							foreach (var choiceEntity in choiceEntities)
+							{
+								choiceEntity.Change(GameTag.ZONE, "HAND");
+							}
+
+
 						}
-
-
 					}
 					break;
 				case ChoiceType.GENERAL:
@@ -70,6 +73,20 @@ namespace SabberStoneSyncchronizer.Model
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+	}
+
+	public class PowerChoice
+	{
+		public List<PowerEntity> ChoiceEntities { get; }
+		public ChoiceType Type { get; }
+		public int SourceId { get; }
+
+		public PowerChoice(List<PowerEntity> choiceEntities, ChoiceType type, int sourceId)
+		{
+			ChoiceEntities = choiceEntities;
+			Type = type;
+			SourceId = sourceId;
 		}
 	}
 }

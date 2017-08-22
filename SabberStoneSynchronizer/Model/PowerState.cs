@@ -1,4 +1,4 @@
-﻿namespace SabberStoneSyncchronizer.Model
+﻿namespace SabberStoneSynchronizer.Model
 {
 	enum PowerState
 	{

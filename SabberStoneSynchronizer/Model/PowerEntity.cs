@@ -4,50 +4,50 @@ using System.Linq;
 using System.Text;
 using SabberStoneCore.Enums;
 
-namespace SabberStoneSyncchronizer.Model
+namespace SabberStoneSynchronizer.Model
 {
 	public class PowerEntity
 	{
-		public Dictionary<string, string> Data;
-		private IEnumerable<PowerEntity> _currentChoices;
+		public Dictionary<GameTag, string> Data;
 
 		public PowerEntity()
 		{
-			Data = new Dictionary<string, string>();
+			Data = new Dictionary<GameTag, string>();
 		}
 
 		internal void Add(string tag, string value)
 		{
-			if (!Data.ContainsKey(tag))
+			var gameTag = Util.ParseTag(tag);
+			if (!Data.ContainsKey(gameTag))
 			{
-				Data.Add(tag, value);
+				Data.Add(gameTag, value);
 			}
-			else if (Data[tag] == value)
+			else if (Data[gameTag] == value)
 			{
 				//Console.WriteLine("Unchanged add tag submited: tag[" + tag + "] value[" + value + "]");
 			}
 			else
 			{
-				Console.WriteLine("Changed add tag submited: tag[" + tag + "] oldvalue[" + Data[tag] + "] newvalue[" + value + "]");
+				Console.WriteLine("Changed add tag submited: tag[" + tag + "] oldvalue[" + Data[gameTag] + "] newvalue[" + value + "]");
 			}
 		}
 
-		internal void Change(string tag, string value)
+		internal void Change(GameTag tag, string value)
 		{
 			Data[tag] = value;
 		}
 
-		internal string GetValue(string v)
+		internal string GetValue(GameTag tag)
 		{
 			string result = null;
-			Data.TryGetValue(v, out result);
+			Data.TryGetValue(tag, out result);
 			return result;
 		}
 
 		public string Id
 		{
-			get { return GetValue("ENTITY_ID"); }
-			set { Add("ENTITY_ID", value); }
+			get => GetValue(GameTag.ENTITY_ID);
+			set => Add("ENTITY_ID", value);
 		}
 
 		public override string ToString()
@@ -64,14 +64,10 @@ namespace SabberStoneSyncchronizer.Model
 
 		public bool ValueEquals(GameTag tag, string value)
 		{
-			if (!Data.ContainsKey(tag.ToString()))
+			if (!Data.ContainsKey(tag))
 				return false;
-			return Data[tag.ToString()] == value;
+			return Data[tag] == value;
 		}
 
-		public void SetChoices(IEnumerable<PowerEntity> choices)
-		{
-			_currentChoices = choices;
-		}
 	}
 }

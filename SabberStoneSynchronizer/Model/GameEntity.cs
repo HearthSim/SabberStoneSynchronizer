@@ -1,4 +1,4 @@
-﻿namespace SabberStoneSyncchronizer.Model
+﻿namespace SabberStoneSynchronizer.Model
 {
 	public class GameEntity : PowerEntity
 	{

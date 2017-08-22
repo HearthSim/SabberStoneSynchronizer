@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Enums;
 
-namespace SabberStoneSyncchronizer.Model
+namespace SabberStoneSynchronizer.Model
 {
 	internal class PowerCreateGame : PowerHistoryEntry
 	{

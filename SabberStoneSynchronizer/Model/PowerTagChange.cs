@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using SabberStoneCore.Enums;
 
-namespace SabberStoneSyncchronizer.Model
+namespace SabberStoneSynchronizer.Model
 {
 	internal class PowerTagChange : PowerHistoryEntry
 	{
@@ -11,7 +11,7 @@ namespace SabberStoneSyncchronizer.Model
 		}
 
 		public int Id { get; internal set; }
-		public string Tag { get; internal set; }
+		public GameTag Tag { get; internal set; }
 		public string Value { get; internal set; }
 
 		public override void Process(PowerGame powerGame)

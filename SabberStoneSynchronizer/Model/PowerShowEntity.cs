@@ -1,6 +1,7 @@
 ﻿using System.Text;
+using SabberStoneCore.Enums;
 
-namespace SabberStoneSyncchronizer.Model
+namespace SabberStoneSynchronizer.Model
 {
 	internal class PowerShowEntity : PowerHistoryEntry
 	{
@@ -13,7 +14,7 @@ namespace SabberStoneSyncchronizer.Model
 
 		public override void Process(PowerGame powerGame)
 		{
-			powerGame.Entities[Id].Change("CARD_ID", CardId);
+			powerGame.Entities[Id].Change(GameTag.CARD_ID, CardId);
 		}
 
 		public override string ToString()

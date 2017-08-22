@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using SabberStoneSyncchronizer.Model;
-using SabberStoneSyncchronizer.Sync;
+using SabberStoneSynchronizer.Sync;
 
-namespace SabberStoneSyncchronizer
+namespace SabberStoneSynchronizer
 {
 	class Program
 	{
@@ -45,7 +43,9 @@ namespace SabberStoneSyncchronizer
 			}
 			Console.WriteLine("Game state extracted, attempting to sync...");
 			var game = new SyncedGame(powerGame);
+			game.Sync();
 			Console.WriteLine("Sync complete");
+			var p1Cards = game.Player1.Choice;
 			Console.ReadKey();
 		}
 	}

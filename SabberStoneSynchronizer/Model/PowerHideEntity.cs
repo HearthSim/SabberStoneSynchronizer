@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SabberStoneSyncchronizer.Model
+namespace SabberStoneSynchronizer.Model
 {
 	internal class PowerHideEntity : PowerHistoryEntry
 	{

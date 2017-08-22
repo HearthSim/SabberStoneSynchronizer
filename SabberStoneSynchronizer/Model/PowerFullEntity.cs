@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Text;
+using SabberStoneCore.Enums;
 
-namespace SabberStoneSyncchronizer.Model
+namespace SabberStoneSynchronizer.Model
 {
 	public class PowerFullEntity : PowerHistoryEntry
 	{
@@ -19,7 +20,7 @@ namespace SabberStoneSyncchronizer.Model
 
 		public string CardId
 		{
-			get { return PowerEntity.GetValue("CARD_ID"); }
+			get { return PowerEntity.GetValue(GameTag.CARD_ID); }
 			set { PowerEntity.Add("CARD_ID", value); }
 		}
 

@@ -1,4 +1,4 @@
-﻿namespace SabberStoneSyncchronizer.Model
+﻿namespace SabberStoneSynchronizer.Model
 {
 	internal class PowerBlockStart : PowerHistoryEntry
 	{
