@@ -203,6 +203,19 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "SabberStoneCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.3",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "bin/placeholder/SabberStoneCore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SabberStoneCore.dll": {}
+        }
       }
     }
   },
@@ -1511,11 +1524,17 @@
         "netstandard.library.2.0.0-preview2-25401-01.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "SabberStoneCore/1.0.0": {
+      "type": "project",
+      "path": "../SabberBase/SabberStoneCore/SabberStoneCore.csproj",
+      "msbuildProject": "../SabberBase/SabberStoneCore/SabberStoneCore.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "Microsoft.NETCore.App >= 2.0.0-preview2-25407-01"
+      "Microsoft.NETCore.App >= 2.0.0-preview2-25407-01",
+      "SabberStoneCore >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1547,7 +1566,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\git\\SabberStoneSynchronizer\\SabberBase\\SabberStoneCore\\SabberStoneCore.csproj": {
+              "projectPath": "D:\\git\\SabberStoneSynchronizer\\SabberBase\\SabberStoneCore\\SabberStoneCore.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
