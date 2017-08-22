@@ -1,0 +1,3 @@
+[submodule "SabberBase"]
+	path = SabberBase
+	url = https://github.com/HearthSim/SabberStone
