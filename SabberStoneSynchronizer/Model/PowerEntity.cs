@@ -64,9 +64,12 @@ namespace SabberStoneSynchronizer.Model
 
 		public bool ValueEquals(GameTag tag, string value)
 		{
-			if (!Data.ContainsKey(tag))
-				return false;
-			return Data[tag] == value;
+			return Data.ContainsKey(tag) && Data[tag] == value;
+		}
+
+		public bool ValueEquals(GameTag tag, Predicate<string> comparison)
+		{
+			return Data.ContainsKey(tag) && comparison(Data[tag]);
 		}
 
 	}

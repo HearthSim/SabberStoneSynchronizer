@@ -22,17 +22,14 @@ namespace SabberStoneSynchronizer.Sync
 		public void Sync()
 		{
 
+			Player1 = ExtractPlayer(_powerGame.Player1);
+			Player2 = ExtractPlayer(_powerGame.Player2);
+			FirstPlayer = int.Parse(_powerGame.Player1.GetValue(GameTag.CONTROLLER)) == 1 ? Player1 : Player2;
+			CurrentPlayer = Player1;
+
 			State = _powerGame.Game.Data[GameTag.STATE].ParseEnum<State>();
 			Step = _powerGame.Game.Data[GameTag.STEP].ParseEnum<Step>();
 			NextStep = _powerGame.Game.Data[GameTag.NEXT_STEP].ParseEnum<Step>();
-
-			Player1 = ExtractPlayer(_powerGame.Player1);
-			Player2 = ExtractPlayer(_powerGame.Player2);
-			
-			Player1.DeckCards.AddRange(_powerGame.Player1.CardEntities.Where(a => a.ValueEquals(GameTag.ZONE, "DECK")).Select(a => Cards.FromId(a.Data[GameTag.CARD_ID])));
-			Player1.DeckCards.AddRange(_powerGame.Player1.CardEntities.Where(a => a.ValueEquals(GameTag.ZONE, "DECK")).Select(a => Cards.FromId(a.Data[GameTag.CARD_ID])));
-
-
 
 		}
 
@@ -45,7 +42,8 @@ namespace SabberStoneSynchronizer.Sync
 				{
 					ChoiceType = powerPlayer.CurrentChoice.Type,
 					TargetIds = powerPlayer.CurrentChoice.ChoiceEntities.Select(a => int.Parse(a.Id)).ToList(),
-					SourceId = powerPlayer.CurrentChoice.SourceId
+					SourceId = powerPlayer.CurrentChoice.SourceId,
+					Choices = powerPlayer.CurrentChoice.ChoiceEntities.Select(a => int.Parse(a.Id)).ToList()
 				};
 
 				switch (choice.ChoiceType)
@@ -85,6 +83,9 @@ namespace SabberStoneSynchronizer.Sync
 						throw new ArgumentOutOfRangeException();
 				}
 			}
+			player.PlayState = powerPlayer.GetValue(GameTag.PLAYSTATE).ParseEnum<PlayState>();
+			var heroCard = _powerGame.Entities.Values.Single(a => a.ValueEquals(GameTag.CARDTYPE, "HERO") && a.ValueEquals(GameTag.CONTROLLER, controllerNum => int.Parse(controllerNum) == powerPlayer.PlayerId));
+			player.AddHeroAndPower(Cards.FromId(heroCard.GetValue(GameTag.CARD_ID)));
 			return player;
 		}
 	}

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using SabberStoneCore.Config;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneSynchronizer.Sync;
 
 namespace SabberStoneSynchronizer
@@ -30,8 +33,44 @@ namespace SabberStoneSynchronizer
 			//}
 			//Console.ReadKey();
 			TestInitialMulli();
+			TestTurn1();
+			//TestSyncdSabberGame();
 		}
 
+		private static void TestTurn1()
+		{
+			var interpreter = new Interpreter(@"test\", "turn1.log");
+			var powerGame = interpreter.Parse(false, false).Last();
+			while (powerGame.PowerHistory.Any())
+			{
+				powerGame.PowerHistory.Dequeue().Process(powerGame);
+			}
+			Console.WriteLine("Game state extracted, attempting to sync...");
+			var game = new SyncedGame(powerGame);
+			game.Sync();
+			//var o = game.CurrentPlayer.Options();
+			//game.Process(o.First());
+			Console.WriteLine("Sync complete");
+			Console.ReadKey();
+		}
+
+		static void TestSyncdSabberGame()
+		{
+			var game = new Game(new GameConfig()
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.ROGUE,
+				Player2HeroClass = CardClass.PALADIN,
+				FillDecks = false,
+				History = true
+			});
+			game.StartGame();
+			while (game.State != State.COMPLETE)
+			{
+				var options = game.CurrentPlayer.Options();
+				game.Process(options.First());
+			}
+		}
 
 		static void TestInitialMulli()
 		{

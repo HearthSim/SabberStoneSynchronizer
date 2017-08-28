@@ -270,12 +270,12 @@ namespace SabberStoneSynchronizer
 			{
 				return new PowerShowEntity()
 				{
-					Name = match1.Groups[2].Value,
-					Id = Int32.Parse(match1.Groups[3].Value),
-					Zone = match1.Groups[4].Value,
-					ZonePos = match1.Groups[5].Value,
-					PlayerId = match1.Groups[6].Value,
-					CardId = match1.Groups[7].Value
+					Name = match2.Groups[2].Value,
+					Id = Int32.Parse(match2.Groups[3].Value),
+					Zone = match2.Groups[4].Value,
+					ZonePos = match2.Groups[5].Value,
+					PlayerId = match2.Groups[6].Value,
+					CardId = match2.Groups[7].Value
 				};
 			}
 
